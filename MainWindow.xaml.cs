@@ -21,6 +21,9 @@ namespace CulmProject
             FlipPageHidden();
             EndHidden();
             cmbResult.Visibility = Visibility.Hidden;
+            imgGoldHeads.Visibility = Visibility.Hidden;
+            imgGoldTails.Visibility = Visibility.Hidden;
+            lblResult.Visibility = Visibility.Hidden;
         }
 
         private void cmbStart_Click(object sender, RoutedEventArgs e)
@@ -34,10 +37,12 @@ namespace CulmProject
 
         private void rbHeads_Checked(object sender, RoutedEventArgs e)
         {
+            aniFlip.setMode(Animation.Modes.CoinFlip);
             cmbFlip.Visibility = Visibility.Visible;
         }
         private void rbTails_Checked(object sender, RoutedEventArgs e)
         {
+            aniFlip.setMode(Animation.Modes.CoinFlip);
             cmbFlip.Visibility= Visibility.Visible;
         }
 
@@ -46,6 +51,7 @@ namespace CulmProject
         private void cmbFlip_Click(object sender, RoutedEventArgs e)
         {
             ViewResult();
+            aniFlip.Initiate(10, "GoldFlip", 75);
         }
 
         private void cmbResult_Click(object sender, RoutedEventArgs e)
@@ -61,18 +67,30 @@ namespace CulmProject
             if (cf == 1 && rbTails.IsChecked == true)
             {
                 lblWinOrLose.Content = "You Win";
+                imgGoldTails.Visibility = Visibility.Visible;
+                lblResult.Content = "It was Tails!";
+                lblResult.Visibility = Visibility.Visible;
             }
             else if(cf == 2 && rbTails.IsChecked == true)
             {
                 lblWinOrLose.Content = "You Lose";
+                imgGoldHeads.Visibility = Visibility.Visible;
+                lblResult.Content = "It was Heads!";
+                lblResult.Visibility = Visibility.Visible;
             }
             else if(cf == 1 && rbHeads.IsChecked == true)
             {
                 lblWinOrLose.Content = "You Lose";
+                imgGoldTails.Visibility = Visibility.Visible;
+                lblResult.Content = "It was Tails!";
+                lblResult.Visibility = Visibility.Visible;
             }
             else if(cf == 2 && rbHeads.IsChecked == true)
             {
                 lblWinOrLose.Content = "You Win";
+                imgGoldHeads.Visibility = Visibility.Visible;
+                lblResult.Content = "It was Heads!";
+                lblResult.Visibility = Visibility.Visible;
             }
         }
 
