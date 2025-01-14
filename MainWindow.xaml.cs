@@ -24,40 +24,84 @@ namespace CulmProject
             imgGoldHeads.Visibility = Visibility.Hidden;
             imgGoldTails.Visibility = Visibility.Hidden;
             lblResult.Visibility = Visibility.Hidden;
+            ChoiceHidden();
+            lblManipulatedTitle.Visibility = Visibility.Hidden;
+            lblRandomTitle.Visibility = Visibility.Hidden;
+
         }
 
         private void cmbStart_Click(object sender, RoutedEventArgs e)
         {
             MainHidden();
-            FlipPageVisilble();
-            cmbFlip.Visibility = Visibility.Hidden;
+            ChoiceVisible();
+            
         }
-
-
 
         private void rbHeads_Checked(object sender, RoutedEventArgs e)
         {
             aniFlip.setMode(Animation.Modes.CoinFlip);
-            cmbFlip.Visibility = Visibility.Visible;
         }
         private void rbTails_Checked(object sender, RoutedEventArgs e)
         {
             aniFlip.setMode(Animation.Modes.CoinFlip);
-            cmbFlip.Visibility= Visibility.Visible;
         }
 
+        private void rbManipulate_Checked(object sender, RoutedEventArgs e)
+        {
+            ChoiceHidden();
+            FlipPageVisible();
+            lblManipulatedTitle.Visibility= Visibility.Visible;
+        }
+        private void rbRandom_Checked(object sender, RoutedEventArgs e)
+        {
+            ChoiceHidden();
+            FlipPageVisible();
+            lblRandomTitle.Visibility= Visibility.Visible;
+        }
 
 
         private void cmbFlip_Click(object sender, RoutedEventArgs e)
         {
             ViewResult();
             aniFlip.Initiate(10, "GoldFlip", 75);
+            lblManipulatedTitle.Visibility = Visibility.Hidden;
+            lblRandomTitle.Visibility = Visibility.Hidden;
+            rbTails.Visibility = Visibility.Hidden;
+            rbHeads.Visibility = Visibility.Hidden;
         }
 
         private void cmbResult_Click(object sender, RoutedEventArgs e)
         {
             FlipPageHidden();
             EndVisible();
+            aniFlip.Visibility = Visibility.Hidden;
+            RandomResult();
+
+            if (rbRandom.IsChecked == true)
+            {
+                RandomResult();
+            }
+            else if(rbManipulate.IsChecked == true)
+            {
+                if (rbHeads.IsChecked == true)
+                {
+                    imgGoldHeads.Visibility = Visibility.Visible;
+                    lblResult.Content = "It was Heads!";
+                    lblWinOrLose.Visibility = Visibility.Hidden;
+                }
+                else if (rbTails.IsChecked == true)
+                {
+                    imgGoldTails.Visibility = Visibility.Visible;
+                    lblResult.Content = "It was Tails!";
+                    lblWinOrLose.Visibility = Visibility.Hidden;
+                }
+            }
+        }
+
+
+
+        public void RandomResult()
+        {
 
             int cf = rand.Next(1, 3);
 
@@ -71,21 +115,21 @@ namespace CulmProject
                 lblResult.Content = "It was Tails!";
                 lblResult.Visibility = Visibility.Visible;
             }
-            else if(cf == 2 && rbTails.IsChecked == true)
+            else if (cf == 2 && rbTails.IsChecked == true)
             {
                 lblWinOrLose.Content = "You Lose";
                 imgGoldHeads.Visibility = Visibility.Visible;
                 lblResult.Content = "It was Heads!";
                 lblResult.Visibility = Visibility.Visible;
             }
-            else if(cf == 1 && rbHeads.IsChecked == true)
+            else if (cf == 1 && rbHeads.IsChecked == true)
             {
                 lblWinOrLose.Content = "You Lose";
                 imgGoldTails.Visibility = Visibility.Visible;
                 lblResult.Content = "It was Tails!";
                 lblResult.Visibility = Visibility.Visible;
             }
-            else if(cf == 2 && rbHeads.IsChecked == true)
+            else if (cf == 2 && rbHeads.IsChecked == true)
             {
                 lblWinOrLose.Content = "You Win";
                 imgGoldHeads.Visibility = Visibility.Visible;
@@ -96,17 +140,17 @@ namespace CulmProject
 
         public void MainVisible()
         {
-            lblName.Visibility = Visibility.Visible;
             cmbStart.Visibility = Visibility.Visible;
+            imgTitle.Visibility = Visibility.Visible;
         }
 
         public void MainHidden()
         {
-            lblName.Visibility = Visibility.Hidden;
             cmbStart.Visibility = Visibility.Hidden;
+            imgTitle.Visibility = Visibility.Hidden;
         }
 
-        public void FlipPageVisilble()
+        public void FlipPageVisible()
         {
             cmbFlip.Visibility = Visibility.Visible;
             rbHeads.Visibility = Visibility.Visible;
@@ -136,6 +180,19 @@ namespace CulmProject
         public void EndVisible()
         {
             lblWinOrLose.Visibility = Visibility.Visible;
+        }
+
+        public void ChoiceHidden()
+        {
+            rbManipulate.Visibility = Visibility.Hidden;
+            rbRandom.Visibility = Visibility.Hidden;
+            lblChoice.Visibility = Visibility.Hidden;
+        }
+        public void ChoiceVisible()
+        {
+            rbManipulate.Visibility = Visibility.Visible;
+            rbRandom.Visibility = Visibility.Visible;
+            lblChoice.Visibility = Visibility.Visible;
         }
     }
 }
